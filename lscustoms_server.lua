@@ -320,7 +320,8 @@ AddEventHandler("LSC:buttonSelected", function(name, button, veh)
 				if vtype and vehname then
 					if vRP.tryFullPayment(user_id,price) then
 						TriggerClientEvent("LSC:buttonSelected", player,name, button, true)
-						--saveCustomsVeh(user_id,vehname,veh)
+						local myveh = LSClient.getAllMods(player)
+						vRPLSs.saveCustomsVeh(myveh)
 					else
 						TriggerClientEvent("LSC:buttonSelected", player,name, button, false)
 					end
