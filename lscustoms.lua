@@ -52,7 +52,7 @@ local function LocalPed()
 end
 
 local function firstToUpper(str)
-    return (str:gsub("^%l", string.upper))
+	return (str:gsub("^%l", string.upper))
 end
 
 function myveh.repair()
@@ -60,11 +60,11 @@ function myveh.repair()
 end
 
 local function round(num, idp)
-  if idp and idp>0 then
-    local mult = 10^idp
-    return math.floor(num * mult + 0.5) / mult
-  end
-  return math.floor(num + 0.5)
+	if idp and idp>0 then
+		local mult = 10^idp
+		return math.floor(num * mult + 0.5) / mult
+	end
+	return math.floor(num + 0.5)
 end
 
 local function StartFade()
@@ -79,11 +79,11 @@ local function EndFade()
 	Citizen.CreateThread(function()
 		ShutdownLoadingScreen()
 
-        DoScreenFadeIn(500)
+		DoScreenFadeIn(500)
 
-        while IsScreenFadingIn() do
-            Citizen.Wait(0)
-        end
+		while IsScreenFadingIn() do
+			Citizen.Wait(0)
+		end
 	end)
 end
 
@@ -176,9 +176,9 @@ local function DriveInGarage()
 			{GetControlInstructionalButton(1,LSCMenu.config.controls.menu_down, 0),"Down"},
 			{GetControlInstructionalButton(1,LSCMenu.config.controls.menu_left, 0),"Left"},
 			{GetControlInstructionalButton(1,LSCMenu.config.controls.menu_right, 0),"Right"},
-		 },0)
+		},0)
 
-		 --Max buttons
+		--Max buttons
 		LSCMenu:setMaxButtons(LSC_Config.menu.maxbuttons)
 
 		--Width, height of menu
@@ -239,9 +239,9 @@ local function DriveInGarage()
 		for i,t in pairs(myveh.mods) do
 			if i == 22 or i == 18 then
 				if IsToggleModOn(veh,i) then
-				t.mod = 1
+					t.mod = 1
 				else
-				t.mod = 0
+					t.mod = 0
 				end
 			elseif i == 23 or i == 24 then
 				t.mod = GetVehicleMod(veh,i)
@@ -357,151 +357,151 @@ local function DriveInGarage()
 		AddMod(22,LSCMenu.categories.Lights,"HEADLIGHTS", "Headlights", nil, false)
 		if not IsThisModelABike(GetEntityModel(veh)) then
 			m = m:addSubMenu("NEON KITS", "Neon kits", nil, true)
-				m:addSubMenu("NEON LAYOUT", "Neon layout", nil, true)
-					local btn = m["Neon layout"]:addPurchase("None")
-					for n, mod in pairs(LSC_Config.prices.neonlayout) do
-						local btn = m["Neon layout"]:addPurchase(mod.name,mod.price)
-					end
+			m:addSubMenu("NEON LAYOUT", "Neon layout", nil, true)
+			local btn = m["Neon layout"]:addPurchase("None")
+			for n, mod in pairs(LSC_Config.prices.neonlayout) do
+				local btn = m["Neon layout"]:addPurchase(mod.name,mod.price)
+			end
 
 			m = m:addSubMenu("NEON COLOR", "Neon color", nil, true)
-				for n, mod in pairs(LSC_Config.prices.neoncolor) do
-					local btn = m:addPurchase(mod.name,mod.price)btn.neon = mod.neon
-				end
+			for n, mod in pairs(LSC_Config.prices.neoncolor) do
+				local btn = m:addPurchase(mod.name,mod.price)btn.neon = mod.neon
+			end
 		end
 
 
 		respray = LSCMenu.categories:addSubMenu("RESPRAY", "Respray", "Transforms vehicle appearance.",true)
-			pcol = respray:addSubMenu("PRIMARY COLORS", "Primary color",  nil,true)
-				pcol:addSubMenu("CHROME", "Chrome", nil,true)
-				for n, c in pairs(LSC_Config.prices.chrome.colors) do
-					local btn = pcol.Chrome:addPurchase(c.name,LSC_Config.prices.chrome.price)btn.colorindex = c.colorindex
-					if btn.colorindex == myveh.color[1] then
-						btn.purchased = true
-					end
-				end
-				pcol:addSubMenu("CLASSIC", "Classic", nil,true)
-				for n, c in pairs(LSC_Config.prices.classic.colors) do
-					local btn = pcol.Classic:addPurchase(c.name,LSC_Config.prices.classic.price)btn.colorindex = c.colorindex
-					if btn.colorindex == myveh.color[1] then
-						btn.purchased = true
-					end
-				end
-				pcol:addSubMenu("MATTE", "Matte", nil,true)
-				for n, c in pairs(LSC_Config.prices.matte.colors) do
-					local btn = pcol.Matte:addPurchase(c.name,LSC_Config.prices.matte.price)btn.colorindex = c.colorindex
-					if btn.colorindex == myveh.color[1] then
-						btn.purchased = true
-					end
-				end
-				pcol:addSubMenu("METALLIC", "Metallic", nil,true)
-				for n, c in pairs(LSC_Config.prices.metallic.colors) do
-					local btn = pcol.Metallic:addPurchase(c.name,LSC_Config.prices.metallic.price)btn.colorindex = c.colorindex
-					if btn.colorindex == myveh.color[1] and myveh.extracolor[1] == myveh.color[2] then
-						btn.purchased = true
-					end
-				end
-				pcol:addSubMenu("METALS", "Metals", nil,true)
-				for n, c in pairs(LSC_Config.prices.metal.colors) do
-					local btn = pcol.Metals:addPurchase(c.name,LSC_Config.prices.metal.price)btn.colorindex = c.colorindex
-					if btn.colorindex == myveh.color[1] then
-						btn.purchased = true
-					end
-				end
-			scol = respray:addSubMenu("SECONDARY COLORS", "Secondary color", nil,true)
-				scol:addSubMenu("CHROME", "Chrome", nil,true)
-				for n, c in pairs(LSC_Config.prices.chrome2.colors) do
-					local btn = scol.Chrome:addPurchase(c.name,LSC_Config.prices.chrome2.price)btn.colorindex = c.colorindex
-					if btn.colorindex == myveh.color[2] then
-						btn.purchased = true
-					end
-				end
-				scol:addSubMenu("CLASSIC", "Classic", nil,true)
-				for n, c in pairs(LSC_Config.prices.classic2.colors) do
-					local btn = scol.Classic:addPurchase(c.name,LSC_Config.prices.classic2.price)btn.colorindex = c.colorindex
-					if btn.colorindex == myveh.color[2] then
-						btn.purchased = true
-					end
-				end
-				scol:addSubMenu("MATTE", "Matte", nil,true)
-				for n, c in pairs(LSC_Config.prices.chrome2.colors) do
-					local btn = scol.Matte:addPurchase(c.name,LSC_Config.prices.matte2.price)btn.colorindex = c.colorindex
-					if btn.colorindex == myveh.color[2] then
-						btn.purchased = true
-					end
-				end
-				scol:addSubMenu("METALLIC", "Metallic", nil,true)
-				for n, c in pairs(LSC_Config.prices.metallic2.colors) do
-					local btn = scol.Metallic:addPurchase(c.name,LSC_Config.prices.metallic2.price)btn.colorindex = c.colorindex
-					if btn.colorindex == myveh.color[2] and myveh.extracolor[1] == btn.colorindex then
-						btn.purchased = true
-					end
-				end
-				scol:addSubMenu("METALS", "Metals", nil,true)
-				for n, c in pairs(LSC_Config.prices.metal2.colors) do
-					local btn = scol.Metals:addPurchase(c.name,LSC_Config.prices.metal2.price)btn.colorindex = c.colorindex
-					if btn.colorindex == myveh.color[2] then
-						btn.purchased = true
-					end
-				end
+		pcol = respray:addSubMenu("PRIMARY COLORS", "Primary color",  nil,true)
+		pcol:addSubMenu("CHROME", "Chrome", nil,true)
+		for n, c in pairs(LSC_Config.prices.chrome.colors) do
+			local btn = pcol.Chrome:addPurchase(c.name,LSC_Config.prices.chrome.price)btn.colorindex = c.colorindex
+			if btn.colorindex == myveh.color[1] then
+				btn.purchased = true
+			end
+		end
+		pcol:addSubMenu("CLASSIC", "Classic", nil,true)
+		for n, c in pairs(LSC_Config.prices.classic.colors) do
+			local btn = pcol.Classic:addPurchase(c.name,LSC_Config.prices.classic.price)btn.colorindex = c.colorindex
+			if btn.colorindex == myveh.color[1] then
+				btn.purchased = true
+			end
+		end
+		pcol:addSubMenu("MATTE", "Matte", nil,true)
+		for n, c in pairs(LSC_Config.prices.matte.colors) do
+			local btn = pcol.Matte:addPurchase(c.name,LSC_Config.prices.matte.price)btn.colorindex = c.colorindex
+			if btn.colorindex == myveh.color[1] then
+				btn.purchased = true
+			end
+		end
+		pcol:addSubMenu("METALLIC", "Metallic", nil,true)
+		for n, c in pairs(LSC_Config.prices.metallic.colors) do
+			local btn = pcol.Metallic:addPurchase(c.name,LSC_Config.prices.metallic.price)btn.colorindex = c.colorindex
+			if btn.colorindex == myveh.color[1] and myveh.extracolor[1] == myveh.color[2] then
+				btn.purchased = true
+			end
+		end
+		pcol:addSubMenu("METALS", "Metals", nil,true)
+		for n, c in pairs(LSC_Config.prices.metal.colors) do
+			local btn = pcol.Metals:addPurchase(c.name,LSC_Config.prices.metal.price)btn.colorindex = c.colorindex
+			if btn.colorindex == myveh.color[1] then
+				btn.purchased = true
+			end
+		end
+		scol = respray:addSubMenu("SECONDARY COLORS", "Secondary color", nil,true)
+		scol:addSubMenu("CHROME", "Chrome", nil,true)
+		for n, c in pairs(LSC_Config.prices.chrome2.colors) do
+			local btn = scol.Chrome:addPurchase(c.name,LSC_Config.prices.chrome2.price)btn.colorindex = c.colorindex
+			if btn.colorindex == myveh.color[2] then
+				btn.purchased = true
+			end
+		end
+		scol:addSubMenu("CLASSIC", "Classic", nil,true)
+		for n, c in pairs(LSC_Config.prices.classic2.colors) do
+			local btn = scol.Classic:addPurchase(c.name,LSC_Config.prices.classic2.price)btn.colorindex = c.colorindex
+			if btn.colorindex == myveh.color[2] then
+				btn.purchased = true
+			end
+		end
+		scol:addSubMenu("MATTE", "Matte", nil,true)
+		for n, c in pairs(LSC_Config.prices.chrome2.colors) do
+			local btn = scol.Matte:addPurchase(c.name,LSC_Config.prices.matte2.price)btn.colorindex = c.colorindex
+			if btn.colorindex == myveh.color[2] then
+				btn.purchased = true
+			end
+		end
+		scol:addSubMenu("METALLIC", "Metallic", nil,true)
+		for n, c in pairs(LSC_Config.prices.metallic2.colors) do
+			local btn = scol.Metallic:addPurchase(c.name,LSC_Config.prices.metallic2.price)btn.colorindex = c.colorindex
+			if btn.colorindex == myveh.color[2] and myveh.extracolor[1] == btn.colorindex then
+				btn.purchased = true
+			end
+		end
+		scol:addSubMenu("METALS", "Metals", nil,true)
+		for n, c in pairs(LSC_Config.prices.metal2.colors) do
+			local btn = scol.Metals:addPurchase(c.name,LSC_Config.prices.metal2.price)btn.colorindex = c.colorindex
+			if btn.colorindex == myveh.color[2] then
+				btn.purchased = true
+			end
+		end
 
 
 		LSCMenu.categories:addSubMenu("WHEELS", "Wheels", "Custom rims, tires and colors.",true)
-			wtype = LSCMenu.categories.Wheels:addSubMenu("WHEEL TYPE", "Wheel type", "Custom rims in all styles and sizes.",true)
-				if IsThisModelABike(GetEntityModel(veh)) then
-					fwheels = wtype:addSubMenu("FRONT WHEEL", "Front wheel", nil,true)
-						for n, w in pairs(LSC_Config.prices.frontwheel) do
-							btn = fwheels:addPurchase(w.name,w.price)btn.wtype = w.wtype btn.modtype = 23 btn.mod = w.mod
-						end
-					bwheels = wtype:addSubMenu("BACK WHEEL", "Back wheel", nil,true)
-						for n, w in pairs(LSC_Config.prices.backwheel) do
-							btn = bwheels:addPurchase(w.name,w.price)btn.wtype = w.wtype btn.modtype = 24 btn.mod = w.mod
-						end
-				else
-					sportw = wtype:addSubMenu("SPORT WHEELS", "Sport", nil,true)
-						for n, w in pairs(LSC_Config.prices.sportwheels) do
-							local btn = sportw:addPurchase(w.name,w.price)btn.wtype = w.wtype btn.modtype = 23 btn.mod = w.mod
-						end
-					musclew = wtype:addSubMenu("MUSCLE WHEELS", "Muscle", nil,true)
-						for n, w in pairs(LSC_Config.prices.musclewheels) do
-							local btn = musclew:addPurchase(w.name,w.price)btn.wtype =  w.wtype btn.modtype = 23 btn.mod = w.mod
-						end
-					lowriderw = wtype:addSubMenu("LOWRIDER WHEELS", "Lowrider", nil,true)
-						for n, w in pairs(LSC_Config.prices.lowriderwheels) do
-							local btn = lowriderw:addPurchase(w.name,w.price)btn.wtype =  w.wtype btn.modtype = 23 btn.mod = w.mod
-						end
-					suvw = wtype:addSubMenu("SUV WHEELS", "Suv", nil,true)
-						for n, w in pairs(LSC_Config.prices.suvwheels) do
-							local btn = suvw:addPurchase(w.name,w.price)btn.wtype = w.wtype btn.modtype = 23 btn.mod = w.mod
-						end
-					offroadw = wtype:addSubMenu("OFFROAD WHEELS", "Offroad", nil,true)
-						for n, w in pairs(LSC_Config.prices.offroadwheels) do
-							local btn = offroadw:addPurchase(w.name,w.price)btn.wtype = w.wtype btn.modtype = 23 btn.mod = w.mod
-						end
-					tunerw = wtype:addSubMenu("TUNER WHEELS", "Tuner", nil,true)
-						for n, w in pairs(LSC_Config.prices.tunerwheels) do
-							local btn = tunerw:addPurchase(w.name,w.price)btn.wtype = w.wtype btn.modtype = 23 btn.mod = w.mod
-						end
-					hughendw = wtype:addSubMenu("HIGHEND WHEELS", "Highend", nil,true)
-						for n, w in pairs(LSC_Config.prices.highendwheels) do
-							local btn = hughendw:addPurchase(w.name,w.price)btn.wtype = w.wtype btn.modtype = 23 btn.mod = w.mod
-						end
-				end
+		wtype = LSCMenu.categories.Wheels:addSubMenu("WHEEL TYPE", "Wheel type", "Custom rims in all styles and sizes.",true)
+		if IsThisModelABike(GetEntityModel(veh)) then
+			fwheels = wtype:addSubMenu("FRONT WHEEL", "Front wheel", nil,true)
+			for n, w in pairs(LSC_Config.prices.frontwheel) do
+				btn = fwheels:addPurchase(w.name,w.price)btn.wtype = w.wtype btn.modtype = 23 btn.mod = w.mod
+			end
+			bwheels = wtype:addSubMenu("BACK WHEEL", "Back wheel", nil,true)
+			for n, w in pairs(LSC_Config.prices.backwheel) do
+				btn = bwheels:addPurchase(w.name,w.price)btn.wtype = w.wtype btn.modtype = 24 btn.mod = w.mod
+			end
+		else
+			sportw = wtype:addSubMenu("SPORT WHEELS", "Sport", nil,true)
+			for n, w in pairs(LSC_Config.prices.sportwheels) do
+				local btn = sportw:addPurchase(w.name,w.price)btn.wtype = w.wtype btn.modtype = 23 btn.mod = w.mod
+			end
+			musclew = wtype:addSubMenu("MUSCLE WHEELS", "Muscle", nil,true)
+			for n, w in pairs(LSC_Config.prices.musclewheels) do
+				local btn = musclew:addPurchase(w.name,w.price)btn.wtype =  w.wtype btn.modtype = 23 btn.mod = w.mod
+			end
+			lowriderw = wtype:addSubMenu("LOWRIDER WHEELS", "Lowrider", nil,true)
+			for n, w in pairs(LSC_Config.prices.lowriderwheels) do
+				local btn = lowriderw:addPurchase(w.name,w.price)btn.wtype =  w.wtype btn.modtype = 23 btn.mod = w.mod
+			end
+			suvw = wtype:addSubMenu("SUV WHEELS", "Suv", nil,true)
+			for n, w in pairs(LSC_Config.prices.suvwheels) do
+				local btn = suvw:addPurchase(w.name,w.price)btn.wtype = w.wtype btn.modtype = 23 btn.mod = w.mod
+			end
+			offroadw = wtype:addSubMenu("OFFROAD WHEELS", "Offroad", nil,true)
+			for n, w in pairs(LSC_Config.prices.offroadwheels) do
+				local btn = offroadw:addPurchase(w.name,w.price)btn.wtype = w.wtype btn.modtype = 23 btn.mod = w.mod
+			end
+			tunerw = wtype:addSubMenu("TUNER WHEELS", "Tuner", nil,true)
+			for n, w in pairs(LSC_Config.prices.tunerwheels) do
+				local btn = tunerw:addPurchase(w.name,w.price)btn.wtype = w.wtype btn.modtype = 23 btn.mod = w.mod
+			end
+			hughendw = wtype:addSubMenu("HIGHEND WHEELS", "Highend", nil,true)
+			for n, w in pairs(LSC_Config.prices.highendwheels) do
+				local btn = hughendw:addPurchase(w.name,w.price)btn.wtype = w.wtype btn.modtype = 23 btn.mod = w.mod
+			end
+		end
 
 		m = LSCMenu.categories.Wheels:addSubMenu("WHEEL COLOR", "Wheel color", "Custom wheel colors.",true)
-			for n, c in pairs(LSC_Config.prices.wheelcolor.colors) do
-				local btn = m:addPurchase(c.name,LSC_Config.prices.wheelcolor.price)btn.colorindex = c.colorindex
-			end
+		for n, c in pairs(LSC_Config.prices.wheelcolor.colors) do
+			local btn = m:addPurchase(c.name,LSC_Config.prices.wheelcolor.price)btn.colorindex = c.colorindex
+		end
 
 		m = LSCMenu.categories.Wheels:addSubMenu("WHEEL ACCESSORIES", "Wheel accessories", "Bulletproof tires and custom burnout smoke.",true)
-			for n, mod in pairs(LSC_Config.prices.wheelaccessories) do
-				local btn = m:addPurchase(mod.name,mod.price)btn.smokecolor = mod.smokecolor
-			end
+		for n, mod in pairs(LSC_Config.prices.wheelaccessories) do
+			local btn = m:addPurchase(mod.name,mod.price)btn.smokecolor = mod.smokecolor
+		end
 
 		m = LSCMenu.categories:addSubMenu("WINDOWS", "Windows", "A selection of tinted windows.",true)
-			btn = m:addPurchase("None")btn.tint = false
-			for n, tint in pairs(LSC_Config.prices.windowtint) do
-				btn = m:addPurchase(tint.name,tint.price)btn.tint = tint.tint
-			end
+		btn = m:addPurchase("None")btn.tint = false
+		for n, tint in pairs(LSC_Config.prices.windowtint) do
+			btn = m:addPurchase(tint.name,tint.price)btn.tint = tint.tint
+		end
 
 		Citizen.CreateThread(function()
 			--NetworkSetEntityVisibleToNetwork(entity, toggle)
@@ -566,6 +566,10 @@ function LSCMenu:onButtonSelected(name, button)
 	--Send the selected button to server
 	--print("lscustom:: "..myveh.modelhash)
 	TriggerServerEvent("LSC:buttonSelected", name, button, myveh)
+end
+
+function vRPLSc.getAllMods()
+	return myveh
 end
 
 --We actually need to get out of garage? o_O
@@ -638,9 +642,9 @@ end
 
 --Get the length of table
 local function tablelength(T)
-  local count = 0
-  for _ in pairs(T) do count = count + 1 end
-  return count
+	local count = 0
+	for _ in pairs(T) do count = count + 1 end
+	return count
 end
 
 --Check if table contains value
@@ -967,9 +971,6 @@ AddEventHandler("LSC:buttonSelected", function(name, button, canpurchase)
 		end
 	end
 	CheckPurchases(m)
-	if canpurchase then
-		LSserver.saveCustomsVeh(myveh)
-	end
 end)
 
 
@@ -977,14 +978,14 @@ end)
 --This was perfect until I tried different vehicles
 local function PointCamAtBone(bone,ox,oy,oz)
 	SetIbuttons({
-			{GetControlInstructionalButton(1,LSCMenu.config.controls.menu_back, 0),"Back"},
-			{GetControlInstructionalButton(1,LSCMenu.config.controls.menu_select, 0),"Select"},
-			{GetControlInstructionalButton(1,LSCMenu.config.controls.menu_up, 0),"Up"},
-			{GetControlInstructionalButton(1,LSCMenu.config.controls.menu_down, 0),"Down"},
-			{GetControlInstructionalButton(1,LSCMenu.config.controls.menu_left, 0),"Left"},
-			{GetControlInstructionalButton(1,LSCMenu.config.controls.menu_right, 0),"Right"},
-			{GetControlInstructionalButton(1,0, 0),"Free camera"}
-	 },0)
+		{GetControlInstructionalButton(1,LSCMenu.config.controls.menu_back, 0),"Back"},
+		{GetControlInstructionalButton(1,LSCMenu.config.controls.menu_select, 0),"Select"},
+		{GetControlInstructionalButton(1,LSCMenu.config.controls.menu_up, 0),"Up"},
+		{GetControlInstructionalButton(1,LSCMenu.config.controls.menu_down, 0),"Down"},
+		{GetControlInstructionalButton(1,LSCMenu.config.controls.menu_left, 0),"Left"},
+		{GetControlInstructionalButton(1,LSCMenu.config.controls.menu_right, 0),"Right"},
+		{GetControlInstructionalButton(1,0, 0),"Free camera"}
+	},0)
 	SetCamActive(cam, true)
 	local veh = myveh.vehicle
 	local b = GetEntityBoneIndexByName(veh, bone)
@@ -998,14 +999,14 @@ end
 
 local function MoveVehCam(pos,x,y,z)
 	SetIbuttons({
-			{GetControlInstructionalButton(1,LSCMenu.config.controls.menu_back, 0),"Back"},
-			{GetControlInstructionalButton(1,LSCMenu.config.controls.menu_select, 0),"Select"},
-			{GetControlInstructionalButton(1,LSCMenu.config.controls.menu_up, 0),"Up"},
-			{GetControlInstructionalButton(1,LSCMenu.config.controls.menu_down, 0),"Down"},
-			{GetControlInstructionalButton(1,LSCMenu.config.controls.menu_left, 0),"Left"},
-			{GetControlInstructionalButton(1,LSCMenu.config.controls.menu_right, 0),"Right"},
-			{GetControlInstructionalButton(1,0, 0),"Free camera"}
-	 },0)
+		{GetControlInstructionalButton(1,LSCMenu.config.controls.menu_back, 0),"Back"},
+		{GetControlInstructionalButton(1,LSCMenu.config.controls.menu_select, 0),"Select"},
+		{GetControlInstructionalButton(1,LSCMenu.config.controls.menu_up, 0),"Up"},
+		{GetControlInstructionalButton(1,LSCMenu.config.controls.menu_down, 0),"Down"},
+		{GetControlInstructionalButton(1,LSCMenu.config.controls.menu_left, 0),"Left"},
+		{GetControlInstructionalButton(1,LSCMenu.config.controls.menu_right, 0),"Right"},
+		{GetControlInstructionalButton(1,0, 0),"Free camera"}
+	},0)
 	SetCamActive(cam, true)
 	local veh = myveh.vehicle
 	local vx,vy,vz = table.unpack(GetEntityCoords(veh))
@@ -1072,59 +1073,59 @@ function LSCMenu:OnMenuChange(last,current)
 		PointCamAtBone("wheel_lr",-1.4,0,0.3)
 	elseif c == "front wheel" or c == "wheel accessories" or  c == "wheel color" or c == "sport" or c == "muscle" or c == "lowrider"  or c == "highend" or c == "suv" or c == "offroad" or c == "tuner" then
 		PointCamAtBone("wheel_lf",-1.4,0,0.3)
-	--[[elseif c == "windows" then
+		--[[elseif c == "windows" then
 		if not IsThisModelABike(GetEntityModel(myveh.vehicle)) then
 		PointCamAtBone("window_lf",-2.0,0,0.3)
-		end]]
-	elseif c == "neon color" then
-		PointCamAtBone("neon_l",-2.0,2.0,0.4)
-	elseif c == "shifter leavers" or c == "trim design" or c == "ornaments" or c == "dashboard" or c == "dials" or c == "seats" or c =="steering wheels" then
-		--Set view mode to first person
-		SetFollowVehicleCamViewMode(4)
-	elseif c == "doors" and last.name:lower() == "interior" then
-		--Open both front doors
-		SetVehicleDoorOpen(myveh.vehicle, 0, 0, 0)
-		SetVehicleDoorOpen(myveh.vehicle, 1, 0, 0)
-	elseif c == "trunk" then
-		--- doorIndex:
-		-- 0 = Front Left Door
-		-- 1 = Front Right Door
-		-- 2 = Back Left Door
-		-- 3 = Back Right Door
-		-- 4 = Hood
-		-- 5 = Trunk
-		-- 6 = Back
-		-- 7 = Back2
-		SetVehicleDoorOpen(myveh.vehicle, 5, 0, 0)
-	elseif c == "speakers" or  c == "engine block" or c == "air filter" or c == "strut brace" or c == "cam cover" then
-		--Open hood and trunk
-		SetVehicleDoorOpen(myveh.vehicle, 5, 0, 0)
-		SetVehicleDoorOpen(myveh.vehicle, 4, 0, 0)
-	elseif IsCamActive(cam) then
-		--Go back to gameplaycam
-		SetCamCoord(cam,GetGameplayCamCoords())
-		SetCamRot(cam, GetGameplayCamRot(2), 2)
-		RenderScriptCams( 1, 1, 0, 0, 0)
-		RenderScriptCams( 0, 1, 1000, 0, 0)
-		SetCamActive(gameplaycam, true)
-		EnableGameplayCam(true)
-		SetCamActive(cam, false)
-		SetIbuttons({
-			{GetControlInstructionalButton(1,LSCMenu.config.controls.menu_back, 0),"Back"},
-			{GetControlInstructionalButton(1,LSCMenu.config.controls.menu_select, 0),"Select"},
-			{GetControlInstructionalButton(1,LSCMenu.config.controls.menu_up, 0),"Up"},
-			{GetControlInstructionalButton(1,LSCMenu.config.controls.menu_down, 0),"Down"},
-			{GetControlInstructionalButton(1,LSCMenu.config.controls.menu_left, 0),"Left"},
-			{GetControlInstructionalButton(1,LSCMenu.config.controls.menu_right, 0),"Right"}
-		},0)
-	else
-		--Close all doors
-		SetVehicleDoorShut(myveh.vehicle, 0, 0)
-		SetVehicleDoorShut(myveh.vehicle, 1, 0)
-		SetVehicleDoorShut(myveh.vehicle, 4, 0)
-		SetVehicleDoorShut(myveh.vehicle, 5, 0)
-		SetFollowVehicleCamViewMode(0)
-	end
+	end]]
+elseif c == "neon color" then
+	PointCamAtBone("neon_l",-2.0,2.0,0.4)
+elseif c == "shifter leavers" or c == "trim design" or c == "ornaments" or c == "dashboard" or c == "dials" or c == "seats" or c =="steering wheels" then
+	--Set view mode to first person
+	SetFollowVehicleCamViewMode(4)
+elseif c == "doors" and last.name:lower() == "interior" then
+	--Open both front doors
+	SetVehicleDoorOpen(myveh.vehicle, 0, 0, 0)
+	SetVehicleDoorOpen(myveh.vehicle, 1, 0, 0)
+elseif c == "trunk" then
+	--- doorIndex:
+	-- 0 = Front Left Door
+	-- 1 = Front Right Door
+	-- 2 = Back Left Door
+	-- 3 = Back Right Door
+	-- 4 = Hood
+	-- 5 = Trunk
+	-- 6 = Back
+	-- 7 = Back2
+	SetVehicleDoorOpen(myveh.vehicle, 5, 0, 0)
+elseif c == "speakers" or  c == "engine block" or c == "air filter" or c == "strut brace" or c == "cam cover" then
+	--Open hood and trunk
+	SetVehicleDoorOpen(myveh.vehicle, 5, 0, 0)
+	SetVehicleDoorOpen(myveh.vehicle, 4, 0, 0)
+elseif IsCamActive(cam) then
+	--Go back to gameplaycam
+	SetCamCoord(cam,GetGameplayCamCoords())
+	SetCamRot(cam, GetGameplayCamRot(2), 2)
+	RenderScriptCams( 1, 1, 0, 0, 0)
+	RenderScriptCams( 0, 1, 1000, 0, 0)
+	SetCamActive(gameplaycam, true)
+	EnableGameplayCam(true)
+	SetCamActive(cam, false)
+	SetIbuttons({
+		{GetControlInstructionalButton(1,LSCMenu.config.controls.menu_back, 0),"Back"},
+		{GetControlInstructionalButton(1,LSCMenu.config.controls.menu_select, 0),"Select"},
+		{GetControlInstructionalButton(1,LSCMenu.config.controls.menu_up, 0),"Up"},
+		{GetControlInstructionalButton(1,LSCMenu.config.controls.menu_down, 0),"Down"},
+		{GetControlInstructionalButton(1,LSCMenu.config.controls.menu_left, 0),"Left"},
+		{GetControlInstructionalButton(1,LSCMenu.config.controls.menu_right, 0),"Right"}
+	},0)
+else
+	--Close all doors
+	SetVehicleDoorShut(myveh.vehicle, 0, 0)
+	SetVehicleDoorShut(myveh.vehicle, 1, 0)
+	SetVehicleDoorShut(myveh.vehicle, 4, 0)
+	SetVehicleDoorShut(myveh.vehicle, 5, 0)
+	SetFollowVehicleCamViewMode(0)
+end
 end
 
 
@@ -1343,6 +1344,7 @@ local function AddBlips()
 		local blip = AddBlipForCoord(pos.inside.x,pos.inside.y,pos.inside.z)
 		SetBlipSprite(blip, 72)
 		SetBlipAsShortRange(blip,true)
+		SetBlipScale(blip, 0.8)
 		if i == 5 then
 			BeginTextCommandSetBlipName("STRING")
 			AddTextComponentString("Beeker's Garage")
@@ -1454,13 +1456,13 @@ Citizen.CreateThread(function()
 					EnableGameplayCam(true)
 					SetCamActive(cam, false)
 					SetIbuttons({
-							{GetControlInstructionalButton(1,LSCMenu.config.controls.menu_back, 0),"Back"},
-							{GetControlInstructionalButton(1,LSCMenu.config.controls.menu_select, 0),"Select"},
-							{GetControlInstructionalButton(1,LSCMenu.config.controls.menu_up, 0),"Up"},
-							{GetControlInstructionalButton(1,LSCMenu.config.controls.menu_down, 0),"Down"},
-							{GetControlInstructionalButton(1,LSCMenu.config.controls.menu_left, 0),"Left"},
-							{GetControlInstructionalButton(1,LSCMenu.config.controls.menu_right, 0),"Right"}
-					 },0)
+						{GetControlInstructionalButton(1,LSCMenu.config.controls.menu_back, 0),"Back"},
+						{GetControlInstructionalButton(1,LSCMenu.config.controls.menu_select, 0),"Select"},
+						{GetControlInstructionalButton(1,LSCMenu.config.controls.menu_up, 0),"Up"},
+						{GetControlInstructionalButton(1,LSCMenu.config.controls.menu_down, 0),"Down"},
+						{GetControlInstructionalButton(1,LSCMenu.config.controls.menu_left, 0),"Left"},
+						{GetControlInstructionalButton(1,LSCMenu.config.controls.menu_right, 0),"Right"}
+					},0)
 				end
 			end
 		end
